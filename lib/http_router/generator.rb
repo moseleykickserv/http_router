@@ -36,13 +36,13 @@ class HttpRouter
             instance_eval <<-EOT, __FILE__, __LINE__ + 1
             def generate(args, options)
               generated_path = \"#{code}\"
-              #{validation_regex.inspect}.match(generated_path) ? URI::DEFAULT_PARSER.escape(generated_path) : nil
+              #{validation_regex.inspect}.match(generated_path) ? CGI.escape(generated_path) : nil
             end
             EOT
           else
             instance_eval <<-EOT, __FILE__, __LINE__ + 1
             def generate(args, options)
-              URI::DEFAULT_PARSER.escape(\"#{code}\")
+              CGI.escape(\"#{code}\")
             end
             EOT
           end
